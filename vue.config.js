@@ -45,11 +45,11 @@ module.exports = {
     //   }
     // },
     proxy: {
-      '/api': {
+      '/bapi': {
         changeOrigin: true, // 跨域
         target: 'http://localhost:3001',
         pathRewrite: {
-          '^/api': '/api'
+          '^/bapi': '/bapi'
         }
       }
     },

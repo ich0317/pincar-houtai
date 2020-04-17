@@ -19,8 +19,9 @@
     </el-row>
     <div class="content-box">
       <el-table :data="list" stripe style="width: 100%" element-loading-text="Loading" v-loading="listLoading">
-        <el-table-column prop="username" label="账号" width="200" />
-        <el-table-column prop="reg_datetime" label="注册日期" />
+        <el-table-column prop="open_id" label="留言人" width="240" />
+        <el-table-column prop="suggest" label="留言" width="280" />
+        <el-table-column prop="release_datetime" label="留言日期" />
       </el-table>
     </div>
     <div class="page-wrap">
@@ -37,7 +38,7 @@
 </template>
 
 <script>
-
+import { getAdminSuggests } from "@/api/api";
 export default {
   filters: {},
   data() {
@@ -53,12 +54,12 @@ export default {
     };
   },
   mounted() {
-    //this.getUser();
+    this.getSuggests();
   },
   methods: {
-    getUser() {
+    getSuggests() {
       this.listLoading = true;
-      getUserList({ ...this.pageInfo, searchName: this.searchName }).then(
+      getAdminSuggests({ ...this.pageInfo, searchName: this.searchName }).then(
         res => {
           let { code, msg, data } = res;
           this.list = data.list;

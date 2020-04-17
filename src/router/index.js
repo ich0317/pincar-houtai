@@ -8,7 +8,7 @@ import Layout from '@/layout'
 import Index from '@/views/trip-manage/trip-list'
 import User from '@/views/user-manage/user-list'
 import Report from '@/views/report-manage/report-list'
-// import Suggest from '@/views/suggest-manage/suggest-list'
+import Suggest from '@/views/suggest-manage/suggest-list'
 
 /**
  * Note: sub-menu only appear when route children.length >= 1
@@ -77,18 +77,18 @@ export const constantRoutes = [
       }
     ]
   },
-  // {
-  //   path: '/suggest-manage',
-  //   component: Layout,
-  //   children: [
-  //     {
-  //       path: '/suggest-manage',
-  //       name: 'suggest-manage',
-  //       component: Suggest,
-  //       meta: { title: '意见反馈', icon: 'news' }
-  //     }
-  //   ]
-  // },
+  {
+    path: '/suggest-manage',
+    component: Layout,
+    children: [
+      {
+        path: '/suggest-manage',
+        name: 'suggest-manage',
+        component: Suggest,
+        meta: { title: '意见反馈', icon: 'news' }
+      }
+    ]
+  },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

@@ -21,7 +21,14 @@
       <el-table :data="list" stripe style="width: 100%" element-loading-text="Loading" v-loading="listLoading">
         <el-table-column prop="nickname" label="昵称" width="200" />
         <el-table-column prop="openid" label="ID" width="250" />
-        <el-table-column prop="createdate" label="注册日期" />
+        <el-table-column prop="createdate" label="注册日期" width="200" />
+        <el-table-column label="操作">
+          <template slot-scope="scope">
+            <el-button @click="handle(scope.row)" type="danger" size="mini" v-if="scope.row.isUse">禁用</el-button>
+            <el-button @click="handle(scope.row)" type="success" size="mini" v-else>启用</el-button>
+            
+          </template>
+        </el-table-column>
       </el-table>
     </div>
     <div class="page-wrap">
@@ -38,7 +45,7 @@
 </template>
 
 <script>
-import { getAdminUsers } from "@/api/api";
+import { getAdminUsers, isUseUser } from "@/api/api";
 export default {
   filters: {},
   data() {
@@ -75,6 +82,23 @@ export default {
     search() {
       this.pageInfo.page = 1;
       this.getUser();
+    },
+    handle(row){
+      this.$confirm(`确定要${row.isUse ? '禁用' : '启用'}此用户吗?`, "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning"
+      }).then(() => {
+        isUseUser({openid:row.openid, isUse: !row.isUse}).then(res=>{
+            let { code, msg, data } = res;
+            this.$message({
+                message: msg,
+                type: 'success'
+              });
+              this.getUser();
+          })
+      });
+     
     }
   }
 };
