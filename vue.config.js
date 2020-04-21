@@ -45,11 +45,11 @@ module.exports = {
     //   }
     // },
     proxy: {
-      '/bapi': {
+      '/carAdminApi': {
         changeOrigin: true, // 跨域
-        target: 'http://localhost:3001',
+        target: 'http://localhost:3002',
         pathRewrite: {
-          '^/bapi': '/bapi'
+          '^/carAdminApi': '/carAdminApi'
         }
       }
     },

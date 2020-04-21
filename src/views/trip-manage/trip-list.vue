@@ -61,10 +61,11 @@
         <el-table-column prop="via" label="途径地点" width="150"></el-table-column>
         <el-table-column prop="attention" label="备注" width="150"></el-table-column>
         <el-table-column prop="open_id" label="用户ID" width="180"></el-table-column>
+        <el-table-column prop="_id" label="行程ID" width="180"></el-table-column>
         <el-table-column prop="status" label="状态"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope" width="100">
-            <el-button @click="del(scope.row)" type="danger" size="mini" v-if="scope.row.status == '发布'">关闭</el-button>
+            <el-button @click="del(scope.row)" type="danger" size="mini" v-if="scope.row.status !== '已冻结'">冻结</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -83,7 +84,7 @@
 </template>
 
 <script>
-import { getAdminTrips, closeMyList } from "@/api/api";
+import { getAdminTrips, setFrozenTrip } from "@/api/api";
 import { stampToTime } from "@/utils/index";
 export default {
   data() {
@@ -124,7 +125,8 @@ export default {
             v.type = v.type === 0 ? '人找车' : '车找人';
             v._start_city = v.start_province + ',' + v.start_city + ',' + v.start_district;
             v._end_city = `${v.end_province},${v.end_province},${v.end_province}`;
-            v.status = v.status === 0 ? '已关闭' : '发布';
+
+            v.status = {'-1':'已冻结', '0':'已关闭', '1':"发布"}[v.status];
             v.car_type = v.car_type || '-';
             v.via = v.via || '-';
             v.attention = v.attention || '-';
@@ -142,12 +144,12 @@ export default {
     },
     //删除
     del(row) {
-      this.$confirm(`确定要关闭${row.phone}?`, "提示", {
+      this.$confirm(`确定要冻结${row.phone}?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        closeMyList({ _id: row._id }).then(res => {
+        setFrozenTrip({ _id: row._id }).then(res => {
           let { data, msg } = res;
           this.$message({
             message: msg,
