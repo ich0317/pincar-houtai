@@ -6,8 +6,8 @@
           <div class="pan-name">查询条件</div>
           <div class="pan-form">
             <el-form :inline="true" label-width="80px" class="demo-form-inline">
-              <el-form-item label="昵称">
-                <el-input placeholder="昵称" size="medium" v-model="searchName" />
+              <el-form-item label="用户ID">
+                <el-input placeholder="用户ID" size="medium" v-model="openid" />
               </el-form-item>
               <el-form-item>
                 <el-button type="primary" size="medium" @click="search">查询</el-button>
@@ -19,14 +19,13 @@
     </el-row>
     <div class="content-box">
       <el-table :data="list" stripe style="width: 100%" element-loading-text="Loading" v-loading="listLoading">
-        <el-table-column prop="nickname" label="昵称" width="200" />
-        <el-table-column prop="openid" label="ID" width="250" />
+        <el-table-column prop="nickname" label="昵称" width="150" />
+        <el-table-column prop="openid" label="用户ID" width="250" />
         <el-table-column prop="createdate" label="注册日期" width="200" />
         <el-table-column label="操作">
           <template slot-scope="scope">
             <el-button @click="handle(scope.row)" type="danger" size="mini" v-if="scope.row.isUse">禁用</el-button>
             <el-button @click="handle(scope.row)" type="success" size="mini" v-else>启用</el-button>
-            
           </template>
         </el-table-column>
       </el-table>
@@ -52,7 +51,7 @@ export default {
     return {
       list: [],
       listLoading: null,
-      searchName: null, //搜索名称
+      openid: null, //用户id
       pageInfo: {
         page: 1,
         page_size: 10,
@@ -66,7 +65,7 @@ export default {
   methods: {
     getUser() {
       this.listLoading = true;
-      getAdminUsers({ ...this.pageInfo, searchName: this.searchName }).then(
+      getAdminUsers({ ...this.pageInfo, openid: this.openid }).then(
         res => {
           let { code, msg, data } = res;
           this.list = data.list;

@@ -1,6 +1,6 @@
 module.exports = {
 
-  title: '买票票后台管理系统',
+  title: '拼车后台管理系统',
 
   /**
    * @type {boolean} true | false

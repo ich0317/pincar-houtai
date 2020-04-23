@@ -49,7 +49,7 @@ export const constantRoutes = [
         path: '/trip-list',
         name: 'trip-list',
         component: Index,
-        meta: { title: '行程列表', icon: 'cinema' }
+        meta: { title: '行程列表', icon: 'trip' }
       }
     ]
   },
@@ -61,7 +61,7 @@ export const constantRoutes = [
         path: '/user-manage',
         name: 'user-manage',
         component: User,
-        meta: { title: '用户列表', icon: 'film' }
+        meta: { title: '用户列表', icon: 'user' }
       }
     ]
   },
@@ -73,7 +73,7 @@ export const constantRoutes = [
         path: '/report-manage',
         name: 'report-manage',
         component: Report,
-        meta: { title: '举报列表', icon: 'order' }
+        meta: { title: '举报列表', icon: 'report' }
       }
     ]
   },
@@ -85,7 +85,7 @@ export const constantRoutes = [
         path: '/suggest-manage',
         name: 'suggest-manage',
         component: Suggest,
-        meta: { title: '意见反馈', icon: 'news' }
+        meta: { title: '意见反馈', icon: 'suggest' }
       }
     ]
   },
