@@ -24,7 +24,7 @@
         <el-table-column prop="createdate" label="注册日期" width="200" />
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button @click="handle(scope.row)" type="danger" size="mini" v-if="scope.row.isUse">禁用</el-button>
+            <el-button @click="handle(scope.row)" type="danger" size="mini" v-if="scope.row.is_use">禁用</el-button>
             <el-button @click="handle(scope.row)" type="success" size="mini" v-else>启用</el-button>
           </template>
         </el-table-column>
@@ -83,12 +83,12 @@ export default {
       this.getUser();
     },
     handle(row){
-      this.$confirm(`确定要${row.isUse ? '禁用' : '启用'}此用户吗?`, "提示", {
+      this.$confirm(`确定要${row.is_use ? '禁用' : '启用'}此用户吗?`, "提示", {
         confirmButtonText: "确定",
         cancelButtonText: "取消",
         type: "warning"
       }).then(() => {
-        isUseUser({openid:row.openid, isUse: !row.isUse}).then(res=>{
+        isUseUser({openid:row.openid, is_use: !row.is_use}).then(res=>{
             let { code, msg, data } = res;
             this.$message({
                 message: msg,
